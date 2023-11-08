@@ -1,0 +1,21 @@
+{
+    "name": "model-training",
+    "module": "src/index.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "bun src/index.ts",
+        "build": "bun build src/index.ts --outdir ./dist --target bun",
+        "start": "bun dist/index.js"
+    },
+    "devDependencies": {
+        "bun-types": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "chalk": "^5.3.0",
+        "commander": "^11.1.0",
+        "openai": "^4.16.1"
+    }
+}
