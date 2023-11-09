@@ -1,15 +1,19 @@
 import { program } from 'commander';
 import {
     cancelFineTuningJob,
+    createCompletion,
     createFile,
     createFineTuningJob,
     deleteFile,
+    deleteModel,
     listFiles,
     listFineTuningJobEvents,
     listFineTuningJobs,
+    listModels,
     retrieveFile,
     retrieveFileContent,
     retrieveFineTuningJob,
+    retrieveModel,
 } from './commands';
 
 program
@@ -83,6 +87,41 @@ program
     .argument('<job_id>', 'job id')
     .action(id => {
         listFineTuningJobEvents(true, id);
+    });
+
+program
+    .command('complete')
+    .description('Create and return a chat completion')
+    .argument('<prompt>', 'prompt')
+    .argument('<model>', 'model')
+    .argument('<temperature>', 'temperature')
+    .action((prompt, model, temperature) => {
+        createCompletion(true, {
+            model,
+            messages: [{ role: 'user', content: prompt }],
+            temperature: Number(temperature),
+        });
+    });
+
+program
+    .command('models')
+    .description('Return the list of models')
+    .action(() => {
+        listModels(true);
+    });
+
+program
+    .command('model')
+    .description('Get model')
+    .argument('<model_id>', 'model id')
+    .option('--delete', 'delete model', false)
+    .action((id, opt) => {
+        if (opt.delete) {
+            deleteModel(true, id);
+            return;
+        }
+        retrieveModel(true, id);
+        return;
     });
 
 program.parse();

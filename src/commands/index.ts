@@ -1,3 +1,4 @@
+export { createCompletion } from './completion/create';
 export { createFile } from './files/create';
 export { deleteFile } from './files/delete';
 export { listFiles } from './files/list';
@@ -8,3 +9,6 @@ export { createFineTuningJob } from './fineTuning/create';
 export { listFineTuningJobs } from './fineTuning/list';
 export { listFineTuningJobEvents } from './fineTuning/listEvents';
 export { retrieveFineTuningJob } from './fineTuning/retrieve';
+export { deleteModel } from './models/delete';
+export { listModels } from './models/list';
+export { retrieveModel } from './models/retrieve';

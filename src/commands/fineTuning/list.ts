@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { timestamp } from '../../utils/dateFormatted';
+import { secondsToDhms, timestamp } from '../../utils/dateFormatted';
 import { OpenAI, openai } from '../../utils/openai';
 
 const _listFineTuningJobs = async () => {
@@ -24,6 +24,9 @@ const _listFineTuningJobsExe = async () => {
                     `status: ${chalk.bold(job.status)}, ` +
                     `started: ${timestamp(job.created_at)}, ` +
                     `finished: ${job.finished_at ? timestamp(job.finished_at) : null}, ` +
+                    `duration: ${
+                        job.finished_at ? secondsToDhms(job.finished_at - job.created_at) : null
+                    }, ` +
                     `tokens: ${job.trained_tokens} }`
             );
         }
