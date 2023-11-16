@@ -98,7 +98,14 @@ program
     .action((prompt, model, temperature) => {
         createCompletion(true, {
             model,
-            messages: [{ role: 'user', content: prompt }],
+            messages: [
+                {
+                    role: 'system',
+                    content:
+                        'You are an Explore AI robot, based on the training you received, respond in a json format containing metrics and attributes',
+                },
+                { role: 'user', content: prompt },
+            ],
             temperature: Number(temperature),
         });
     });

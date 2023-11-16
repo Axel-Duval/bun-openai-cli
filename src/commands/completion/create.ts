@@ -7,7 +7,9 @@ const _createCompletion = async (body: OpenAI.ChatCompletionCreateParamsNonStrea
 const _createCompletionExe = async (body: OpenAI.ChatCompletionCreateParamsNonStreaming) => {
     try {
         const completion = await _createCompletion(body);
-        console.log(completion);
+        const { choices, ...rest } = completion;
+        console.log(rest);
+        choices.forEach(console.log);
     } catch (error) {
         console.log((error as any).message);
     }
