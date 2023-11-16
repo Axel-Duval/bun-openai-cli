@@ -15,6 +15,7 @@ import {
     retrieveFineTuningJob,
     retrieveModel,
 } from './commands';
+import { extractMessagesFromSample } from './utils/readJsonl';
 
 program
     .command('files')
@@ -101,11 +102,24 @@ program
             messages: [
                 {
                     role: 'system',
-                    content:
-                        'You are an Explore AI robot, based on the training you received, respond in a json format containing metrics and attributes',
+                    content: 'As the Explore AI robot, respond to my demands.',
                 },
                 { role: 'user', content: prompt },
             ],
+            temperature: Number(temperature),
+        });
+    });
+
+program
+    .command('complete-dumb')
+    .description('Create and return a chat completion')
+    .argument('<prompt>', 'prompt')
+    .argument('<temperature>', 'temperature')
+    .action((prompt, temperature) => {
+        const messages = extractMessagesFromSample('./sample/explore-nlq-16-11-23-1.jsonl');
+        createCompletion(true, {
+            model: 'gpt-3.5-turbo-1106',
+            messages: [...messages, { role: 'user', content: prompt }],
             temperature: Number(temperature),
         });
     });
