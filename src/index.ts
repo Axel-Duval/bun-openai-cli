@@ -114,9 +114,10 @@ program
     .command('complete-dumb')
     .description('Create and return a chat completion')
     .argument('<prompt>', 'prompt')
+    .argument('<file_path>', 'training file path')
     .argument('<temperature>', 'temperature')
-    .action((prompt, temperature) => {
-        const messages = extractMessagesFromSample('./sample/explore-nlq-16-11-23-1.jsonl');
+    .action((prompt, filePath, temperature) => {
+        const messages = extractMessagesFromSample(filePath);
         createCompletion(true, {
             model: 'gpt-3.5-turbo-1106',
             messages: [...messages, { role: 'user', content: prompt }],
