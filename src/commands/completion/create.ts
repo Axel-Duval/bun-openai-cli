@@ -9,7 +9,7 @@ const _createCompletionExe = async (body: OpenAI.ChatCompletionCreateParamsNonSt
         const completion = await _createCompletion(body);
         const { choices, ...rest } = completion;
         console.log(rest);
-        choices.forEach(console.log);
+        choices.forEach(choice => console.log(choice));
     } catch (error) {
         console.log((error as any).message);
     }
