@@ -10,6 +10,7 @@ import {
     listFineTuningJobEvents,
     listFineTuningJobs,
     listModels,
+    prepareFile,
     retrieveFile,
     retrieveFileContent,
     retrieveFineTuningJob,
@@ -144,6 +145,15 @@ program
         }
         retrieveModel(true, id);
         return;
+    });
+
+program
+    .command('prepare')
+    .description('Prepare model input from csv')
+    .argument('<input_file_path>', 'input file path')
+    .argument('<output_file_path>', 'output file path')
+    .action((input_file_path, output_file_path) => {
+        prepareFile(true, input_file_path, output_file_path);
     });
 
 program.parse();
